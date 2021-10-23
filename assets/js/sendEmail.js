@@ -1,8 +1,10 @@
-function sendMail(contactForm) {
+function sendEmail(event) {
+    event.preventDefault();
+
     emailjs.send('service_bnplt08', 'rosie-ci', {
-        'from_name': contactForm.name.value,
-        'from_email': contactForm.emailaddress.value,
-        'project_request': contactForm.projectsummary.value
+        'from_name': this.fullname.value,
+        'from_email': this.emailaddress.value,
+        'project_request': this.projectsummary.value
     })
     .then(
         function(response) {
@@ -12,4 +14,10 @@ function sendMail(contactForm) {
             console.log('FAILED', error);
         }
     );
+
+    this.reset();
+
+    return false;
 }
+
+document.getElementById('contactForm').addEventListener('submit', sendEmail)
